@@ -7,7 +7,7 @@ class qReg:
     collapsed_state = None
 
     def __init__(self, num: int):
-        self.state = np.matrix([np.complex(0)] * (1 << num))
+        self.state = np.matrix([np.complex(0)] * (2 ** num))
         self.state.itemset(0, 1)
         self.width = num
 
@@ -17,7 +17,7 @@ class qReg:
 
     def measure(self):
         self.measured = True
-        state = np.random.choice(a = [range(2 ** self.width)], p = self.probabilities)
+        state = np.random.choice(a = list(range(2 ** self.width)), p = self.probabilities)
         self.collapsed_state = [int(b) for b in format(state, f'0{self.width}b')]
         return self.collapsed_state
 
