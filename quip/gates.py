@@ -44,6 +44,16 @@ class pauli_z(one_qubit_gate):
         [0,-1]
     ])
 
+class phase_shift(one_qubit_gate):
+    symbol = 'S'
+    def __init__(self, phi):
+        self.matrix = np.array([
+            [1, 0],
+            [0, np.exp(i * phi)]
+        ])
+
 class not_a_gate(one_qubit_gate):
     symbol = ' '
     matrix = None
+
+class
