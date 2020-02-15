@@ -7,13 +7,13 @@ class QuantumSystem:
     collapsed_state = None
 
     def __init__(self, num: int):
-        self.state = np.matrix([np.complex(0)] * (2 ** num))
+        self.state = np.array([np.complex(0)] * (2 ** num))
         self.state.itemset(0, 1)
         self.width = num
 
     @property
     def probabilities(self):
-        return [np.absolute(a) ** 2 for a in self.state.tolist()[0]]
+        return [np.absolute(a) ** 2 for a in np.nditer(self.state)]
 
     def measure(self):
         self.measured = True
