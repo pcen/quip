@@ -1,12 +1,6 @@
 import numpy as np
 from quip.gates import identity
-
-
-def gate_kronecker(gates):
-    product = np.eye(1)
-    for g in gates:
-        product = np.kron(product, g.matrix)
-    return product
+from quip.math.speedy_gates import parallel_gates_equiv
 
 
 class GateLayout:
@@ -40,7 +34,7 @@ class GateLayout:
     @property
     def parallel_equivs(self):
         for i in range(self.length):
-            yield gate_kronecker([path[i] for path in self.grid])
+            yield parallel_gates_equiv([path[i] for path in self.grid])
 
 
     def equivalent_matrix(self):
