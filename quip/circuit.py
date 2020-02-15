@@ -18,7 +18,7 @@ class Circuit:
             print('must compile circuit before running')
             return False
         else:
-            q_reg.state = q_reg.state * self.compiled
+            q_reg.state = q_reg.state @ self.compiled
             return True
 
     def __str__(self):

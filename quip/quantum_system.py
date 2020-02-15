@@ -22,7 +22,7 @@ class QuantumSystem:
         return self.collapsed_state
 
     def print(self):
-        print(f'State:\n{str([s for s in self.state.tolist()[0]])}')
+        print(f'State:\n{self.state}')
         print(f'Probabilities:\n{str([str(p)[:6] for p in self.probabilities])}')
         if self.measured:
             print(f'Collapsed State:\n{self.collapsed_state}')

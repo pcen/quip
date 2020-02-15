@@ -38,15 +38,15 @@ class GateLayout:
 
 
     @property
-    def parallel_gate_equivalents(self):
+    def parallel_equivs(self):
         for i in range(self.length):
             yield gate_kronecker([path[i] for path in self.grid])
 
 
     def equivalent_matrix(self):
         equivalent = np.eye(2 ** self.width)
-        for gate in self.parallel_gate_equivalents:
-            equivalent = equivalent * gate
+        for g in self.parallel_equivs:
+            equivalent = equivalent @ g
         return equivalent
 
 
