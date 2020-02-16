@@ -55,5 +55,3 @@ class phase_shift(one_qubit_gate):
 class not_a_gate(one_qubit_gate):
     symbol = ' '
     matrix = None
-
-class
