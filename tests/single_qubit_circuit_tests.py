@@ -4,7 +4,7 @@ path.append("..")
 
 from quip.circuit import Circuit
 from quip.quantum_system import QuantumSystem
-from quip.gates import *
+from quip.gates.single_qubit import *
 
 
 class HadamardCircuitTest(unittest.TestCase):
@@ -18,5 +18,5 @@ class HadamardCircuitTest(unittest.TestCase):
         for p in qs.probabilities:
             self.assertTrue(0.4999 < p < 0.5001)
 
-if __name__ == '__main__':
+def run():
     unittest.main()

@@ -20,5 +20,6 @@ class QuantumSystemTest(unittest.TestCase):
         for p in prob[1:]:
             self.assertTrue(p == 0)
 
-if __name__ == '__main__':
-    unittest.main()
+def run():
+    q = QuantumSystemTest()
+    q.test_creation()

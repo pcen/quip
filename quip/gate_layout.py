@@ -1,5 +1,5 @@
 import numpy as np
-from quip.gates import identity
+from quip.gates.single_qubit import identity
 from quip.math.speedy_gates import parallel_gates_equiv
 
 

@@ -1,5 +1,5 @@
 import numpy as np
-from quip.gates import identity as I
+from quip.gates.single_qubit import identity
 
 
 def plain_kronecker(gates):
@@ -21,7 +21,7 @@ def fast_kron_id(matrix, n):
 
 
 def is_identity(gate):
-    return isinstance(gate, I) or gate is I
+    return isinstance(gate, identity) or gate is identity
 
 
 def parallel_gates_equiv(gates):
@@ -43,11 +43,11 @@ def parallel_gates_equiv(gates):
 # TODO: remove/relocate validation to unit test
 def benchmark():
     from timeit import default_timer as t
-    from quip.gates import hadamard
+    from quip.gates.single_qubit import hadamard
     iterations = 10
-    i = I()
+    I = identity()
     h = hadamard()
-    gs = [h,i,i,h,i]
+    gs = [h,I,I,I,I,h,I]
 
     s = t()
     for i in range(iterations):

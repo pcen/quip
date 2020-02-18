@@ -1,50 +1,44 @@
 import numpy as np
+from quip.gates.quantum_gate import QuantumGate
+from quip.math.common_values import i
 
-i = np.complex(0, 1)
+# Single qubit quantum gates
+class OneQubitGate(QuantumGate):
+    pass
 
-class one_qubit_gate:
-    matrix = np.eye(1)
-    symbol = ''
-
-    def __str__(self):
-        return self.symbol
-
-    def __repr__(self):
-        return self.__str__()
-
-class identity(one_qubit_gate):
+class identity(OneQubitGate):
     symbol = 'I'
     matrix = np.eye(2)
 
-class pauli_x(one_qubit_gate):
+class pauli_x(OneQubitGate):
     symbol = 'X'
     matrix = np.array([
         [0, 1],
         [1, 0]
     ])
 
-class hadamard(one_qubit_gate):
+class hadamard(OneQubitGate):
     symbol = 'H'
     matrix = np.array([
         [1, 1],
         [1,-1]
     ]) * (1 / np.sqrt(2))
 
-class pauli_y(one_qubit_gate):
+class pauli_y(OneQubitGate):
     symbol = 'Y'
     matrix = np.array([
         [0,-i],
         [i, 0]
     ])
 
-class pauli_z(one_qubit_gate):
+class pauli_z(OneQubitGate):
     symbol = 'Z'
     matrix = np.array([
         [1, 0],
         [0,-1]
     ])
 
-class phase_shift(one_qubit_gate):
+class phase_shift(OneQubitGate):
     symbol = 'S'
     def __init__(self, phi):
         self.matrix = np.array([
@@ -52,6 +46,6 @@ class phase_shift(one_qubit_gate):
             [0, np.exp(i * phi)]
         ])
 
-class not_a_gate(one_qubit_gate):
+class not_a_gate(OneQubitGate):
     symbol = ' '
     matrix = None
