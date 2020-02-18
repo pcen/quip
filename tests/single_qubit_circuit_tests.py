@@ -1,6 +1,4 @@
 import unittest
-from sys import path
-path.append("..")
 
 from quip.circuit import Circuit
 from quip.quantum_system import QuantumSystem
@@ -17,6 +15,3 @@ class HadamardCircuitTest(unittest.TestCase):
         c.run(qs)
         for p in qs.probabilities:
             self.assertTrue(0.4999 < p < 0.5001)
-
-def run():
-    unittest.main()

@@ -1,6 +1,4 @@
 import unittest
-from sys import path
-path.append("..")
 
 from quip.quantum_system import QuantumSystem
 
@@ -19,7 +17,3 @@ class QuantumSystemTest(unittest.TestCase):
         self.assertTrue(prob[0] == 1)
         for p in prob[1:]:
             self.assertTrue(p == 0)
-
-def run():
-    q = QuantumSystemTest()
-    q.test_creation()
