@@ -20,21 +20,29 @@ def fast_kron_id(matrix, n):
     return p
 
 
-def is_identity(gate):
+def is_id(gate):
     return isinstance(gate, identity) or gate is identity
+
+
+def skip(column, width):
+    for _ in range(width):
+        if next(column, None) is None:
+            break
 
 
 def parallel_gates_equiv(gates):
     equiv = np.eye(1)
     c = 0
+    gates= iter(gates)
     for g in gates:
-        if is_identity(g):
+        if is_id(g):
             c += 1
             continue
         elif c:
             equiv = fast_kron_id(equiv, 2 ** c)
             c = 0
         equiv = np.kron(equiv, g.matrix)
+        skip(gates, g.width - 1)
     if c:
         equiv = fast_kron_id(equiv, 2 ** c)
     return equiv
@@ -50,13 +58,13 @@ def benchmark():
     gs = [h,I,I,I,I,h,I]
 
     s = t()
-    for i in range(iterations):
+    for _ in range(iterations):
         feq = parallel_gates_equiv(gs)
     e = t()
     print(f'new: {e - s}')
 
     s = t()
-    for i in range(iterations):
+    for _ in range(iterations):
         npeq = plain_kronecker(gs)
     e = t()
     print(f'old: {e - s}')

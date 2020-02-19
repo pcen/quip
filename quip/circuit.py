@@ -11,6 +11,8 @@ class Circuit:
     def put(self, y, x, gate):
         return self.gates.place(y, x, gate)
 
+    def pop(self, y, x):
+        return self.gates.remove(y, x)
 
     def compile(self):
         self.compiled = self.gates.equivalent_matrix()

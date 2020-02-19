@@ -2,6 +2,7 @@ import numpy as np
 
 class QuantumGate:
     matrix = np.eye(1)
+    width = 0
     symbol = ''
 
     def __str__(self):

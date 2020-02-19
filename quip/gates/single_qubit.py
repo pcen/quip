@@ -4,7 +4,7 @@ from quip.math.common_values import i
 
 # Single qubit quantum gates
 class OneQubitGate(QuantumGate):
-    pass
+    width = 1
 
 class identity(OneQubitGate):
     symbol = 'I'
@@ -47,5 +47,5 @@ class phase_shift(OneQubitGate):
         ])
 
 class not_a_gate(OneQubitGate):
-    symbol = ' '
+    symbol = '|'
     matrix = None
