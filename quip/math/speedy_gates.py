@@ -46,30 +46,3 @@ def parallel_gates_equiv(gates):
     if c:
         equiv = fast_kron_id(equiv, 2 ** c)
     return equiv
-
-
-# TODO: remove/relocate validation to unit test
-def benchmark():
-    from timeit import default_timer as t
-    from quip.gates.single_qubit import hadamard
-    iterations = 10
-    I = identity()
-    h = hadamard()
-    gs = [h,I,I,I,I,h,I]
-
-    s = t()
-    for _ in range(iterations):
-        feq = parallel_gates_equiv(gs)
-    e = t()
-    print(f'new: {e - s}')
-
-    s = t()
-    for _ in range(iterations):
-        npeq = plain_kronecker(gs)
-    e = t()
-    print(f'old: {e - s}')
-
-    if(np.array_equal(feq, npeq)):
-        print('output arrays equal.')
-    else:
-        print('***output arrays different.')
