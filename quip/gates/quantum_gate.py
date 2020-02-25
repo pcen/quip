@@ -6,7 +6,10 @@ class QuantumGate:
     symbol = ''
 
     def __str__(self):
-        return self.symbol
+        s = ' ' + self.symbol
+        while len(s) < 4:
+            s += ' '
+        return s
 
     def __repr__(self):
         return self.__str__()

@@ -2,7 +2,7 @@ import numpy as np
 from quip.gates.quantum_gate import QuantumGate
 
 
-def gen_matrix(width, control, target):
+def gen_cnot_matrix(width, control, target):
     target_qb = (1 << (width - 1)) >> target
     control_qb = (1 << (width - 1)) >> control
     n = (2 ** width)
@@ -13,16 +13,16 @@ def gen_matrix(width, control, target):
             matrix.itemset((i, i ^ target_qb), 1)
         else:
             matrix.itemset((i, i), 1)
-
     return matrix
 
 
 class CNOT(QuantumGate):
 
-    symbol = 'C'
+    width = 2
+    symbol = 'CN'
 
     def __init__(self, control, target):
         self.width = abs(control - target) + 1
         if self.width <= 0 or control == target:
             print('invalid CNOT parameters')
-        self.matrix = gen_matrix(self.width, control, target)
+        self.matrix = gen_cnot_matrix(self.width, control, target)
