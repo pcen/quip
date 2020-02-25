@@ -5,16 +5,17 @@ from tests.super_dense_coding_tests import SuperDenseCodingTest as SDCT
 from tests.gates_math_tests import GatesMathTest as GMT
 from tests.gate_gen_tests import GateGenTest as GGT
 
+test_classes = (QST, HCT, SDCT, GMT, GGT)
+
+def every_unit_test():
+    suite = ut.TestSuite()
+    [suite.addTest(ut.makeSuite(tc)) for tc in test_classes]
+    return suite
+
 def test_all():
-    s = ut.TestSuite()
-    s.addTest(ut.makeSuite(QST))
-    s.addTest(ut.makeSuite(HCT))
-    s.addTests(ut.makeSuite(SDCT))
-    s.addTests(ut.makeSuite(GMT))
-    s.addTests(ut.makeSuite(GGT))
-    r = ut.result.TestResult()
-    s.run(r)
-    print(r)
-    if r.failures:
+    results = ut.result.TestResult()
+    every_unit_test().run(results)
+    print(results)
+    if results.failures:
         print(f'test failures:\n{r.failures}')
-    return r
+    return results
