@@ -4,9 +4,10 @@ from tests.single_qubit_circuit_tests import HadamardCircuitTest as HCT
 from tests.super_dense_coding_tests import SuperDenseCodingTest as SDCT
 from tests.gates_math_tests import GatesMathTest as GMT
 from tests.gate_gen_tests import GateGenTest as GGT
+from tests.misc_circuit_tests import MiscCircuitTest as MCT
 
 
-test_classes = (QST, HCT, SDCT, GMT, GGT)
+test_classes = (QST, HCT, SDCT, GMT, GGT, MCT)
 
 
 def every_unit_test():
