@@ -1,4 +1,5 @@
 import numpy as np
+from quip.utils import ket
 
 class QuantumSystem:
     state = None
@@ -18,14 +19,25 @@ class QuantumSystem:
     def measure(self):
         self.measured = True
         state = np.random.choice(a = list(range(2 ** self.width)), p = self.probabilities)
-        self.collapsed_state = [int(b) for b in format(state, f'0{self.width}b')]
+        self.collapsed_state = ket(state, self.width)
         return self.collapsed_state
 
     def print(self):
-        print(f'State:\n{self.state}')
-        print(f'Probabilities:\n{str([str(p)[:6] for p in self.probabilities])}')
+
+        print('State:\n  ', end='')
+        for i, e in enumerate(self.state):
+            if not i:
+                print(e, end='')
+            else:
+                print(',', e, end='')
+        print()
+
+        print('Probabilities:')
+        for i, p in enumerate(self.probabilities):
+            print('  ' + ket(i, self.width) + ":", str(p)[:6])
+
         if self.measured:
-            print(f'Collapsed State:\n{self.collapsed_state}')
+            print(f'Collapsed State:\n  {self.collapsed_state}')
 
     def __str__(self):
         return str(self.state)

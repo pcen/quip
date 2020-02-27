@@ -12,7 +12,7 @@ class QuantumSystemTest(unittest.TestCase):
             self.assertTrue(qs.state.item(i) == 0)
         qs.measure()
         for b in qs.collapsed_state:
-            self.assertTrue(b == 0)
+            self.assertTrue(b == '0')
         prob = qs.probabilities
         self.assertTrue(prob[0] == 1)
         for p in prob[1:]:

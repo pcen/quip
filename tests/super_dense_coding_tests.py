@@ -22,21 +22,21 @@ class SuperDenseCodingTest(unittest.TestCase):
         sdc.put(0,2,identity())
         sdc.compile()
         sdc.run(reg)
-        self.assertTrue(reg.measure() == [0, 0])
+        self.assertTrue(reg.measure() == '00')
 
     def test_sdc_01(self):
         reg, sdc, h, cn = sdc_setup()
         sdc.put(0,2,pauli_x())
         sdc.compile()
         sdc.run(reg)
-        self.assertTrue(reg.measure() == [0, 1])
+        self.assertTrue(reg.measure() == '01')
 
     def test_sdc_10(self):
         reg, sdc, h, cn = sdc_setup()
         sdc.put(0,2,pauli_z())
         sdc.compile()
         sdc.run(reg)
-        self.assertTrue(reg.measure() == [1, 0])
+        self.assertTrue(reg.measure() == '10')
 
     def test_sdc_11(self):
         h = hadamard()
@@ -51,4 +51,4 @@ class SuperDenseCodingTest(unittest.TestCase):
         sdc.put(0,5,h)
         sdc.compile()
         sdc.run(reg)
-        self.assertTrue(reg.measure() == [1, 1])
+        self.assertTrue(reg.measure() == '11')

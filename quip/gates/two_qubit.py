@@ -1,5 +1,6 @@
 import numpy as np
 from quip.gates.quantum_gate import QuantumGate
+from quip.math.common_values import i
 
 def gen_cu_matrix(target, gate):
     matrix = np.eye(4)
@@ -20,3 +21,29 @@ class controlled_U(QuantumGate):
         if gate.width != 1:
             print(f'invalid controlled gate: {gate.symbol}')
         self.matrix = gen_cu_matrix(target, gate)
+
+
+class swap(QuantumGate):
+
+    width = 2
+    symbol = 'SW'
+
+    matrix = np.array([
+        [1, 0, 0, 0],
+        [0, 0, 1, 0],
+        [0, 1, 0, 0],
+        [0, 0, 0, 1]
+    ])
+
+
+class sqrt_swap(QuantumGate):
+
+    width = 2
+    symbol = 'SSW'
+
+    matrix = np.array([
+        [1,             0,             0, 0],
+        [0, 0.5 * (1 + i), 0.5 * (1 - i), 0],
+        [0, 0.5 * (1 - i), 0.5 * (1 + i), 0],
+        [0,             0,             0, 1]
+    ])
