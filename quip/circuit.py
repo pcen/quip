@@ -7,7 +7,6 @@ class Circuit:
     def __init__(self, width):
         self.gates = GateLayout(width)
 
-
     def put(self, y, x, gate):
         return self.gates.place(y, x, gate)
 
@@ -16,7 +15,6 @@ class Circuit:
 
     def compile(self):
         self.compiled = self.gates.equivalent_matrix()
-
 
     def run(self, q_reg):
         if self.compiled is None:
