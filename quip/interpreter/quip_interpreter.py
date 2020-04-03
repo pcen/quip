@@ -1,4 +1,5 @@
 from quip.interpreter.gate_lookup import *
+from quip.circuit import Circuit
 
 def read_file_lines(file_path):
     with open(file_path) as file:
@@ -12,8 +13,8 @@ def parse_instruction(line_start, tokens):
         tokens['instruction'] = line_start.split('(')[0]
         value = line_start.split('(')[-1].split(')')[0].strip()
         try:
-           tokens['params'] = [float(value)]
-        except e:
+            tokens['params'] = [float(value)]
+        except Exception as e:
             print(f'invalid gate parameter {value}')
     else:
         tokens['instruction'] = line_start
@@ -35,10 +36,15 @@ def parse_qubits(line, tokens):
     for i in range(controlled, len(line)):
         if not line[i].strip():
             continue
-        elif line[i].strip().isdecimal():
+        if line[i].strip().isdecimal():
             qubits.append(int(line[i].strip()))
-
     tokens['qubits'] = qubits
+
+    if controlled:
+        tokens['offset'] = min(tokens['qubits'] + [tokens['control']])
+    else:
+        tokens['offset'] = min(tokens['qubits'])
+
     if len(qubits) + controlled != gate_width(tokens['instruction']):
         print(f'wrong number of qubits for {tokens["instruction"]}')
 
@@ -50,15 +56,28 @@ def parse_line(line):
 
     parse_instruction(line[0], tokens)
     parse_qubits(line[1:], tokens)
+
     tokens['controlled'] = is_controlled(tokens['instruction'])
     tokens['parameterized'] = is_parameterized(tokens['instruction'])
     return tokens
 
 def tokenize(code):
     tokenized = []
-    for line in read_file_lines(code):
+    lines = iter(read_file_lines(code))
+    next(lines)
+    for line in lines:
         tokenized.append(parse_line(line))
     return tokenized
 
-def generate_circuit(parsed_code):
-    pass
+def generate_circuit(parsed_code, width):
+    qcircuit = Circuit(width)
+    pos = 0
+    for tkn in parsed_code:
+        qcircuit.put(tkn['offset'], pos, create_gate(tkn))
+        pos += 1
+    return qcircuit
+
+def assemble_circuit(program):
+    tokens = tokenize(program)
+    width = int(open(program).readline().split(' ')[-1].strip('\n'))
+    return generate_circuit(tokens, width)

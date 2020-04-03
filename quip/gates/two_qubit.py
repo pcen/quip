@@ -11,10 +11,8 @@ def gen_cu_matrix(target, gate):
     return matrix
 
 class controlled_U(QuantumGate):
-
     width = 2
     symbol = 'CU'
-
     def __init__(self, control, target, gate):
         if control | target != 1:
             print('invalid controled-U parameters')
@@ -22,12 +20,9 @@ class controlled_U(QuantumGate):
             print(f'invalid controlled gate: {gate.symbol}')
         self.matrix = gen_cu_matrix(target, gate)
 
-
 class swap(QuantumGate):
-
     width = 2
     symbol = 'SW'
-
     matrix = np.array([
         [1, 0, 0, 0],
         [0, 0, 1, 0],
@@ -35,12 +30,9 @@ class swap(QuantumGate):
         [0, 0, 0, 1]
     ])
 
-
 class sqrt_swap(QuantumGate):
-
     width = 2
     symbol = 'SSW'
-
     matrix = np.array([
         [1,             0,             0, 0],
         [0, 0.5 * (1 + i), 0.5 * (1 - i), 0],

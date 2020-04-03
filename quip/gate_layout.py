@@ -12,7 +12,6 @@ class GateLayout:
         self.width = width
         self.length = 1
 
-
     def place(self, y, x, gate):
         if not 0 <= y < self.width or x < 0:
             print(f'invalid gate position ({y}, {x})')
@@ -35,7 +34,6 @@ class GateLayout:
 
         return True
 
-
     def remove(self, y, x):
         if not 0 <= y < self.width or not 0 <= x < self.length:
             print(f'invalid gate position ({y}, {x})')
@@ -47,18 +45,15 @@ class GateLayout:
 
         return True
 
-
     def extend(self, index):
         diff = index + 1 - self.length
         [path.extend([identity()] * diff) for path in self.grid]
         self.length += diff
 
-
     @property
     def parallel_equivs(self):
         for i in range(self.length):
             yield parallel_gates_equiv([path[i] for path in self.grid])
-
 
     def equivalent_matrix(self):
         equivalent = np.eye(2 ** self.width)
@@ -66,10 +61,8 @@ class GateLayout:
             equivalent = equivalent @ g
         return equivalent
 
-
     def __str__(self):
         return ''.join('--'.join(str(g) for g in path) + '\n' for path in self.grid)
-
 
     def __repr_(self):
         return self.__str__()

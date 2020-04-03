@@ -1,7 +1,6 @@
 import numpy as np
 from quip.gates.quantum_gate import QuantumGate
 
-
 def gen_cnot_matrix(width, control, target):
     msb = (1 << (width - 1))
     target_qb = msb >> target
