@@ -1,3 +1,9 @@
+# Python
 main.py
 __pycache__
+
+# VS Code
 .vscode/
+
+# Internal
+*.q
